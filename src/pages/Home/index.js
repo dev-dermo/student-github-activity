@@ -7,7 +7,7 @@ class Home extends React.Component {
 
 		this.state = {
 			students: [
-				'logandpage', 'jacobwilde378', 'gardukman', 'akaser23', 'jacquelime', 'gabrieljgill', 'jdrobs19', 'ThomasNguyen546', 'sfoutz0205', 'alexandraws29', 'maddiemoffat95', 'sithSlave', 'Jaydon-Goodrich', 'bdrawe', 'salgorog', '1jorcarver'
+				'logandpage', 'jacobwilde378', 'gardukman', 'akaser23', 'jacquelime', 'gabrieljgill', 'jdrobs19', 'ThomasNguyen546', 'sfoutz0205', 'alexandraws29', 'maddiemoffat95', 'sithSlave', 'Jaydon-Goodrich', 'bdrawe', 'salgorog', '1jorcarver', 'diarmuid-murphy'
 			],
 			studentInfo: [],
 			onlyPushes: []
@@ -56,9 +56,8 @@ class Home extends React.Component {
 						<Col>
 							<ul>
 								{this.state.onlyPushes.map(record => {
-									{/* console.log(record); */}
 									return (
-											<li>{record[0].actor.login} pushed {record.length} times with {record.reduce((acc, curr) => acc + curr.payload.size, 0)} commits.</li>
+										<li key={record[0].actor.id}>{record[0].actor.login} pushed {record.length} times with {record.reduce((acc, curr) => acc + curr.payload.size, 0)} commits.</li>
 									);
 								})}
 							</ul>
