@@ -19,7 +19,10 @@ class Home extends React.Component {
 			.then(res => res.json())
 			.then(data => {
 				let onlyPushes = data.filter(record => {
-					return record.type === 'PushEvent'
+					let today = new Date();
+					let sevenDaysAgo = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+					
+					return record.type === 'PushEvent' && new Date(record.created_at).getTime() > sevenDaysAgo.getTime();
 				});
 
 				this.setState({
@@ -51,22 +54,14 @@ class Home extends React.Component {
 					{
 						this.state.studentInfo.length === this.state.students.length ?
 						<Col>
-							{this.state.onlyPushes.map(record => {
-								console.log(record);
-								return (
-									<div>
-										<h2>{record[0].actor.login} pushed {record.length} times with the following commits:</h2>
-
-										{record.map(push => {
-											console.log(push.payload.size);
-
-											return (
-												<p>{push.payload.size}</p>
-											);
-										})}
-									</div>
-								);
-							})}
+							<ul>
+								{this.state.onlyPushes.map(record => {
+									{/* console.log(record); */}
+									return (
+											<li>{record[0].actor.login} pushed {record.length} times with {record.reduce((acc, curr) => acc + curr.payload.size, 0)} commits.</li>
+									);
+								})}
+							</ul>
 						</Col> :
 						<Col>
 							<h1>Loading...</h1>
